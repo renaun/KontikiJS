@@ -1,7 +1,9 @@
 KontikiJS
 =========
 
-An ActionScript 3 Library used to generate Flash API JavaScript code through the Randori compiler 
+An ActionScript 3 Library used to generate Flash API JavaScript code through the Randori compiler.
+
+The Randori Framework and Tools can be found here - http://randoriframework.com/
 
 Demo
 --------
