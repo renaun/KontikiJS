@@ -1,0 +1,45 @@
+<project name="kontiki test build" default="compile" basedir="./src">
+    <description>
+        Create kontiki test suite
+    </description>
+    
+	<!-- set global properties for this build -->
+	<property name="src" location="src"/>
+	<property name="build" location="bin-debug"/>
+	<property name="repos" location="/Code/WebRelated/RandoriRepos"/>
+	<property name="rc" location="${repos}/randori-compiler-latest"/>
+	<property name="rlswc" location="${repos}/randori-libraries/bin/randori-libraries.swc"/>
+	<property name="rsdk" location="${repos}/randori-sdk/"/>
+	<property name="source" location="./"/>
+	<property name="output" location="../bin-debug/js-randori"/>
+	
+	<target name="init">
+	</target>
+	<!--
+	
+		    <arg value="-library-path"/>
+		    <arg value="${build}/../../../../bin/swc/kontiki.swc"/>
+	-->
+	<target name="compile" description="compile the JS source " >
+		<exec executable="java">
+		    <arg value="-jar"/>
+		    <arg value="${rc}/randori.jar"/>
+		    <arg value="randori.compiler.clients.Randori"/>
+		    <arg value="-sdk-path=${rsdk}"/>
+		    <arg value="-library-path"/>
+		    <arg value="${rlswc}"/>
+		    <arg value="-source-path"/>
+		    <arg value="${source}"/>
+		    <arg value="-source-path"/>
+		    <arg value="${build}/../../../../src/"/>
+		    <arg value="-js-classes-as-files=true"/>
+		    <arg value="-output" />
+		    <arg value="${output}"/>
+    	</exec>
+    	
+    	<!--<copy file="${build}/../../../../bin/js/kontiki.js" todir="${output}"/>-->
+	</target>   
+    <target name="clean"
+        description="clean up" >
+  </target>
+</project>

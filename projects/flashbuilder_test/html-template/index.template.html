@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Starling in JS using Randori and Flash JS APIs</title>
+	<script src="js-randori/randori-guice-framework.js"></script>
+    <script src="js-randori/GuiceInjectorBootstrap.js"></script>
+</head>
+<body>
+	<script>
+        onload = function() {
+            var bootstrap = new GuiceInjectorBootstrap( "${swf}", "js-randori/" );
+            bootstrap.launch("${bgcolor}", ${width}, ${height}, 60);
+        }
+    </script>
+</body>
+</html>

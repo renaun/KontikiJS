@@ -1,0 +1,3 @@
+[submodule "projects/flashbuilder/randori-sdk"]
+	path = projects/flashbuilder/randori-sdk
+	url = https://github.com/RandoriAS/randori-sdk.git

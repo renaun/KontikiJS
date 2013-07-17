@@ -1,0 +1,84 @@
+<project name="kontiki build" default="compile" basedir="../../src">
+    <description>
+        Create kontiki build
+    </description>
+    
+	<!-- set global properties for this build -->
+	<property name="repos" location="/Code/WebRelated/RandoriRepos"/>
+	<property name="rc" location="${repos}/randori-compiler-latest"/>
+	<property name="rlswc" location="${repos}/randori-libraries/bin/randori-libraries.swc"/>
+	<property name="rsdk" location="${repos}/randori-sdk/"/>
+	<property name="source" location="./"/>
+	<property name="output" location="../bin/js"/>
+	
+
+	<property name="SERVICE_URL" location="http://closure-compiler.appspot.com/compile"/>
+	<property name="NEWFILE" location="${output}/kontiki-min.js"/>
+	
+	<target name="init">
+	</target>
+	
+	<target name="compile" description="compile the JS source " >
+		<exec executable="pwd" />
+		<!-- -->
+		<exec executable="java">
+		    <arg value="-jar"/>
+		    <arg value="${rc}/randori.jar"/>
+		    <arg value="randori.compiler.clients.Randori"/>
+		    <arg value="-sdk-path=${rsdk}"/>
+		    <arg value="-library-path"/>
+		    <arg value="${rlswc}"/>
+		    <arg value="-source-path"/>
+		    <arg value="${source}"/>
+		    <arg value="-js-classes-as-files=false"/>
+		    <arg value="-app-name=kontiki"/>
+		    <arg value="-output" />
+		    <arg value="${output}"/>
+    	</exec>
+		
+
+		<exec executable="bash">
+			<arg value="-c"/>
+			<arg value="rm ${output}/randori*.js" />
+		</exec>
+		
+		<echo>${ant.version}</echo>
+		<!--
+		<replaceregexp match="${line.separator}" replace="%%%%" flags="g">
+			<fileset id="matches2" dir="${output}/files" includes="**/*.js" excludes="**/*.min.js" />
+		</replaceregexp>
+		
+		<fileset id="hasStatics" dir="${output}/files" includes="**/*.js" excludes="**/*.min.js">
+			<containsregexp expression="getStaticDependencies = function\(t\) \{%%%%\tvar p;%%%%\tp = \[" multiline="true" />
+		</fileset>
+		
+
+		<fileset id="noStatics" dir="${output}/files" includes="**/*.js" excludes="**/*.min.js">
+			<containsregexp expression="getStaticDependencies = function\(t\) \{%%%%\tvar p;%%%%\treturn" multiline="true" />
+		</fileset>
+		
+		<replaceregexp match="%%%%" replace="${line.separator}" flags="g">
+			<fileset id="matches3" dir="${output}/files" includes="**/*.js" excludes="**/*.min.js" />
+		</replaceregexp>
+		
+		<pathconvert pathsep="${line.separator}" property="filenames" refid="inheritance"/>
+		<echo>${filenames}</echo>
+		<concat destfile="${output}/kontiki.js">
+			<fileset refid="inheritance" />
+			<fileset refid="hasStatics" />
+		</concat>
+		
+
+
+		<exec executable="bash">
+			<arg value="-c"/>
+			<arg value="rm -Rf ${output}/files" />
+		</exec>
+
+		 -->
+		
+	</target>   
+    <target name="clean"
+        description="clean up" >
+  </target>
+</project>
