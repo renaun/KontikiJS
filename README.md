@@ -5,7 +5,7 @@ An ActionScript 3 Library used to generate Flash API JavaScript code through the
 
 Demo
 --------
-http://renaun.com/html5/randoristarlingtest/hero.html
+http://renaun.com/html5/randoristarlingtest/hero.html (mainly tested on Chrome)
 
 
 What is it?
