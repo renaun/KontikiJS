@@ -20,8 +20,11 @@ How is the Repository Organized?
 ================================
 
 /bin		- Contains the binary for this project, both the swc and js files.
+
 /build 		- Contains a build.sh script to build the kontiki.js and kontiki-min.js file.
+
 /projects 	- Contains a Flash Builder project for the KontikiJS and KontikiJS Test Suite.
+
 /src		- Contains the Kontiki ActionScript 3 source files.
 
 How to use this in your own ActionScript 3 project?
