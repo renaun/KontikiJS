@@ -94,13 +94,18 @@ public class Stage3D extends EventDispatcher
 			FlashTimingEngine.setupStageInteractionEvents(canvas as HTMLCanvasElement);
 			_context3D.webglContext = context;
 			Window.document.body.appendChild(canvas as HTMLCanvasElement);
-			dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
+			Window.setTimeout(sendCreateEvent, 10);
 		}
 		else
 		{
 			dispatchEvent(new ErrorEvent(ErrorEvent.ERROR, false, false, "No Context Available"));
 		}
 		
+	}
+	
+	public function sendCreateEvent():void
+	{
+		dispatchEvent(new Event(Event.CONTEXT3D_CREATE));
 	}
 }
 }

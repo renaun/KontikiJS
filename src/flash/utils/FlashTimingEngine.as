@@ -29,6 +29,7 @@ import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.media.Sound;
 import flash.net.URLRequest;
+import flash.system.Capabilities;
 
 import randori.webkit.dom.MouseEvent;
 import randori.webkit.dom.TouchEvent;
@@ -118,6 +119,17 @@ public class FlashTimingEngine
 	 */
 	public static function start(root:DisplayObjectContainer, framePerSecond:int, stageWidth:int = 0, stageHeight:int = 0, color:uint = 0xcccccc):void
 	{
+		// Capabilities Setting
+		var OSName:String ="Unknown OS";
+		if (Window.navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
+		else if (Window.navigator.appVersion.indexOf("Mac")!=-1) OSName="Macintosh";
+		else if (Window.navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
+		else if (Window.navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";
+		Capabilities.manufacturer = OSName;
+		
+		// End Capabilities Setting
+		
+		
 		try
 		{
 			frameHandler = new RequestAnimationFrame();
@@ -133,6 +145,8 @@ public class FlashTimingEngine
 		stageInstance.stageHeight = stageHeight;
 		stageInstance.color = color;
 		FlashTimingEngine.root = root;
+		// Make the top most DisplayObject the root object
+		root.root = root;
 		stopFlag = false;
 		FlashTimingEngine.framePerSecond = framePerSecond
 		frameTime = int(1000/framePerSecond);
@@ -261,7 +275,7 @@ public class FlashTimingEngine
 	private static var TIMER_EVENT:Event = new TimerEvent(TimerEvent.TIMER);
 	private static var TIMER_COMPLETE_EVENT:Event = new TimerEvent(TimerEvent.TIMER_COMPLETE);
 	
-	private static var root:DisplayObjectContainer;
+	public static var root:DisplayObjectContainer;
 	private static var frameTime:int;
 	private static var framePerSecond:int;
 	private static var startFrameTime:int = 0;

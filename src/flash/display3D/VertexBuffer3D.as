@@ -26,18 +26,23 @@ package flash.display3D
 
 public class VertexBuffer3D
 {
-	public function VertexBuffer3D()
+	public function VertexBuffer3D(context3D:Context3D, numVertices:int, data32PerVertex:int)
 	{
+		this.context3D = context3D;
+		buffer = context3D.webglContext.createBuffer();
+		this.numVertices = numVertices;
+		this.data32PerVertex = data32PerVertex;
 	}
 	// WebGL implementation specific
 	public var context3D:Context3D;
 	public var buffer:WebGLBuffer;
 	public var verticies:ArrayBuffer;
-	public var elementsPerVertex:int = 0;
+	public var numVertices:int;
+	public var data32PerVertex:int;
 	
 	public function uploadFromVector(data:Vector.<Number>, startVertex:int, numVertices:int):void
 	{
-		trace("VertexBuffer3D.uploadFromVector: " + data.length + " startVertex: " + startVertex + " nV: " + numVertices + "  elementsPerVertex: " + this.elementsPerVertex);
+		trace("VertexBuffer3D.uploadFromVector: " + data.length + " startVertex: " + startVertex + " nV: " + numVertices + "  data32PerVertex: " + data32PerVertex);
 		// data.length * 4 or just data.length
 		verticies = new ArrayBuffer(data.length * 4);
 		var floatArr:Float32Array = new Float32Array(verticies);
@@ -47,6 +52,7 @@ public class VertexBuffer3D
 		}
 		
 		context3D.webglContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, buffer);
+		// DYNAMIC_DRAW vs STATIC_DRAW
 		context3D.webglContext.bufferData(WebGLRenderingContext.ARRAY_BUFFER, verticies as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.DYNAMIC_DRAW);
 		context3D.lastVertexBuffer = this;
 	}

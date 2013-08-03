@@ -43,21 +43,31 @@ public dynamic class DisplayObjectContainer extends InteractiveObject
 	// Helper Implementation Properties
 	protected var children:Array = [];
 	public function addChild(child:*):DisplayObject
-	{
+	{		
 		child._parent2 = this;
-		// Might have to remove from other parent first TODO
-		children.push(child);
+		
+		addChildAt(child, children.length-1);
+		
+		return child;
+	}
+	public function addChildAt(child:DisplayObject, index:int):DisplayObject
+	{
+		// Add the root
+		if (!child.root)
+			child.root = FlashTimingEngine.root;
+		
+		if (child.parent)
+			child.parent.removeChild(child);
+		
+		child._parent2 = this;
+		children = children.splice(index, 0, child);
+		
+		// TODO Make this work for index properly
 		if (child.domElement)
 		{
 			var element:Element = (!domElement || !this.parent) ? Window.document.body : domElement;
 			element.appendChild(child.domElement);
 		}
-		return child;
-	}
-	public function addChildAt(child:DisplayObject, index:int):DisplayObject
-	{
-		child._parent2 = this;
-		children = children.splice(index, 0, child);
 		return child;
 	}
 	

@@ -22,6 +22,7 @@ public class Capabilities
 {
 	public function Capabilities()
 	{
+		
 	}
 	
 	public static var version:String = "1.0.0";
@@ -31,5 +32,6 @@ public class Capabilities
 	public static var screenResolutionY:Number = 100;
 	public static var isDebugger:Boolean = false;
 	public static var playerType:String = "js";
+	public static var manufacturer:String = "Unknown OS";
 }
 }

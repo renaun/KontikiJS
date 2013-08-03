@@ -27,8 +27,10 @@ package flash.display3D
 
 public class Program3D
 {
-	public function Program3D()
+	public function Program3D(context3D:Context3D)
 	{
+		this.context3D = context3D;
+		shaderProgram = context3D.webglContext.createProgram();
 	}
 	
 	// WebGL implementation specific
@@ -54,39 +56,62 @@ public class Program3D
 	
 	public function upload(vertexProgram:ByteArray, fragmentProgram:ByteArray):void
 	{
-		registerOrdering = [];
-		// TEMP TO SEE WHATS RUNNING
+		registerOrdering = [];	
+		/*
+		var shaderVertexSrc:Array = [	"attribute vec2 va0;",
+			"attribute vec2 va2;",
+			"attribute float va1;",
+			"uniform mat4 vc1;",
+			"varying vec2 v2;",
+			"varying float v1;",
+			"void main(void) {",
+			"gl_Position = vc1 * vec4(va0, 1.0, 1.0);",
+			"v2 = va2;",
+			"v1 = va1;",
+			"}"];
+		
+		
 		var shaderFragmentSrc:Array = [	"precision mediump float;",
-			"varying vec2 vTextureCoord;",
-			"varying float vColor;",
+			"varying vec2 v2;",
+			"varying float v1;",
 			"uniform sampler2D uSampler;",
 			"void main(void) {",
-			"gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.x, vTextureCoord.y));",
-			"gl_FragColor = gl_FragColor * vColor;",
+			"gl_FragColor = texture2D(uSampler, vec2(v2.x, v2.y));",
+			"gl_FragColor = gl_FragColor * v1;",
 			"}"];
 		
-		var shaderVertexSrc:Array = [	"attribute vec2 aVertexPosition;",
-			"attribute vec2 aTextureCoord;",
-			"attribute float aColor;",
-			"uniform mat4 uMVMatrix;",
-			"varying vec2 vTextureCoord;",
-			"varying float vColor;",
+		var shaderVertexSrc:Array = [	"attribute vec2 va0;",
+			"attribute vec2 va2;",
+			"uniform mat4 vc1;",
+			"varying vec2 v2;",
 			"void main(void) {",
-			"gl_Position = uMVMatrix * vec4(aVertexPosition, 1.0, 1.0);",
-			"vTextureCoord = aTextureCoord;",
-			"vColor = aColor;",
+			"gl_Position = vc1 * vec4(va0, 1.0, 1.0);",
+			"v2 = va2;",
 			"}"];
-		shaderProgram = context3D.webglContext.createProgram();
-		var shaderVertex:WebGLShader = compileShader(shaderVertexSrc, WebGLRenderingContext.VERTEX_SHADER);
-		context3D.webglContext.attachShader(shaderProgram, shaderVertex);
-		var shaderFragment:WebGLShader = compileShader(shaderFragmentSrc, WebGLRenderingContext.FRAGMENT_SHADER);
-		context3D.webglContext.attachShader(shaderProgram, shaderFragment);
 		
+		
+		var shaderFragmentSrc:Array = [	"precision mediump float;",
+			"varying vec2 v2;",
+			"uniform sampler2D uSampler;",
+			"void main(void) {",
+			"gl_FragColor = texture2D(uSampler, vec2(v2.x, v2.y));",
+			"}"];
+		*/
+		// TODO Cache Compiled Shaders
+		var shaderVertexSrc:Array = vertexProgram as Array;
+		var shaderFragmentSrc:Array = fragmentProgram as Array;
+		
+		var shaderVertex:WebGLShader = compileShader(shaderVertexSrc, WebGLRenderingContext.VERTEX_SHADER);
+		var shaderFragment:WebGLShader = compileShader(shaderFragmentSrc, WebGLRenderingContext.FRAGMENT_SHADER);
+		
+		context3D.webglContext.attachShader(shaderProgram, shaderVertex);
+		context3D.webglContext.attachShader(shaderProgram, shaderFragment);
 		context3D.webglContext.linkProgram(shaderProgram);
 		
 		if (!context3D.webglContext.getProgramParameter(shaderProgram, WebGLRenderingContext.LINK_STATUS)) {
 			throw new Error("Could not initialize shaders");
 		}
+		/*
 		
 		context3D.webglContext.useProgram(shaderProgram);
 		
@@ -106,6 +131,7 @@ public class Program3D
 		
 		mvMatrixUniform = context3D.webglContext.getUniformLocation(shaderProgram, "uMVMatrix");
 		samplerUniform = context3D.webglContext.getUniformLocation(shaderProgram, "uSampler");
+		*/
 	}
 	
 	// TODO Make these static and pass in the WebGLRenderingContext
@@ -124,6 +150,11 @@ public class Program3D
 		}
 		
 		return shader;
+	}
+	
+	public function focusProgram():void
+	{
+		context3D.webglContext.useProgram(shaderProgram);
 	}
 }
 }

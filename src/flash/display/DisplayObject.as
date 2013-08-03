@@ -62,6 +62,8 @@ public dynamic class DisplayObject extends EventDispatcher implements IBitmapDra
 	private var _visible:Boolean = true;
 	public var loaderInfo:LoaderInfo = new LoaderInfo();
 	
+	public var root:DisplayObject = null;
+	
 	private var _mouseX:Number = 0;
 	private var _mouseY:Number = 0;
 	

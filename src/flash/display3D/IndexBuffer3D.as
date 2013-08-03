@@ -18,7 +18,6 @@ limitations under the License.
 
 package flash.display3D
 {
-	import randori.webkit.html.canvas.ArrayBuffer;
 	import randori.webkit.html.canvas.WebGLBuffer;
 	import randori.webkit.html.canvas.WebGLRenderingContext;
 	
@@ -27,30 +26,35 @@ package flash.display3D
 
 public class IndexBuffer3D
 {
-	public function IndexBuffer3D()
+	public function IndexBuffer3D(context3D:Context3D, numIndices:int)
 	{
+		this.context3D = context3D;
+		this.numIndices = numIndices;
+		buffer = context3D.webglContext.createBuffer();
 	}
 	// WebGL implementation specific
 	public var context3D:Context3D;
 	public var buffer:WebGLBuffer;
+	public var numIndices:int = 0;
 	
 	public function uploadFromVector(data:Vector.<uint>, startOffset:int, count:int):void
 	{
 		trace("IndexBuffer3D.uploadFromVector: " + data.length);
-		var indices:renaun.html.stub.ArrayBuffer = new renaun.html.stub.ArrayBuffer(data.length * 2);
+		var indices:ArrayBuffer = new ArrayBuffer(data.length * 2);
 		var shortArr:Uint16Array = new Uint16Array(indices);
 		for (var i:int = 0; i < data.length; i++)
 		{
 			shortArr[i] = data[i];
 		}
-		
+		// TODO add index offsets
+		context3D.webglContext.bindBuffer(WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, buffer);
 		context3D.webglContext.bufferData(WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, indices as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.STATIC_DRAW);
 		
 	}
 	
 	public function dispose():void
 	{
-		
+		context3D.webglContext.deleteBuffer(buffer);
 	}
 }
 }

@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,23 +16,15 @@ limitations under the License.
 @author Renaun Erickson / renaun.com / @renaun
 */
 
-package flash.display
+package flash.display3D
 {
-	public dynamic class MovieClip extends Sprite
-	{
-		public function MovieClip()
-		{
-			
-		}
+import randori.webkit.html.canvas.WebGLRenderingContext;
 
-		public var currentFrame:int = 0;
-		
-		public function gotoAndPlay(frame:Object, scene:String = null):void {}
-		public function gotoAndStop(frame:Object, scene:String = null):void {}
-		
-		public function play():void {}
-		public function stop():void {}
-		
-		public function nextFrame():void {}
-	}
+public class Context3DClearMask
+{
+	public static var COLOR:int = WebGLRenderingContext.COLOR_BUFFER_BIT;
+	public static var DEPTH:int = WebGLRenderingContext.DEPTH_BUFFER_BIT;
+	public static var STENCIL:int = WebGLRenderingContext.STENCIL_BUFFER_BIT;
+	public static var ALL:int = int(WebGLRenderingContext.COLOR_BUFFER_BIT) | int(WebGLRenderingContext.DEPTH_BUFFER_BIT) | int(WebGLRenderingContext.STENCIL_BUFFER_BIT);
+}
 }
