@@ -16,16 +16,14 @@ limitations under the License.
 @author Renaun Erickson / renaun.com / @renaun
 */
 
-package flash.utils
+package renaun.html.stub
 {
 
-	public function getQualifiedClassName(value:*):String
+[JavaScript(export="false", name="Uint8Array")]
+public class Uint8Array3
+{
+	public function Uint8Array3(buffer:ArrayBuffer, startOffest:int, length:int)
 	{
-		// Assume Randori classes
-		if (value.className != undefined)
-			return value.className;
-		var tmp:Object = new value();
-		return tmp.constructor.className;
-	}
-	
+	} 
+}
 }

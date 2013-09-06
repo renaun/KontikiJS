@@ -18,6 +18,7 @@ limitations under the License.
 
 package flash.display3D
 {
+import flash.display.BitmapData;
 import flash.display3D.textures.Texture;
 import flash.display3D.textures.TextureBase;
 import flash.events.EventDispatcher;
@@ -533,7 +534,10 @@ public class Context3D extends EventDispatcher
 		switch( format )
 		{
 			case Context3DVertexBufferFormat.BYTES_4:
-				dimension = 4;
+				dimension = 4;		
+				webglContext.enableVertexAttribArray(location);
+				webglContext.vertexAttribPointer(location, dimension, WebGLRenderingContext.UNSIGNED_BYTE, true, buffer.data32PerVertex * numBytes, bufferOffset * numBytes);
+				return;
 				break;
 			case Context3DVertexBufferFormat.FLOAT_1:
 				dimension = 1;
@@ -550,8 +554,13 @@ public class Context3D extends EventDispatcher
 			default:
 				throw new Error("Buffer format " + format + " is not supported.");
 		}
-		webglContext.enableVertexAttribArray(location)
+		webglContext.enableVertexAttribArray(location);
 		webglContext.vertexAttribPointer(location, dimension, WebGLRenderingContext.FLOAT, false, buffer.data32PerVertex * numBytes, bufferOffset * numBytes);
+	}
+	
+	public function drawToBitmapData(destination:BitmapData):void
+	{
+		throw new Error("API NOT IMPLEMENTED -- Context3D.drawToBitmapData");
 	}
 }
 }

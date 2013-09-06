@@ -31,8 +31,8 @@ public class SoundTest extends BaseTest
 		name = "SoundTest";
 	}
 	
-	[Embed(source="/assets/sounds/hit.mp3")]
-	public static const SOUND_HIT:Class;
+	//[Embed(source="/assets/sounds/hit.mp3")]
+	//public static const SOUND_HIT:Class;
 
 	private var sound:Sound;
 	

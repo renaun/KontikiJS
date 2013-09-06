@@ -29,13 +29,16 @@ public class TextField extends InteractiveObject
 {
 	public function TextField()
 	{
-		textNode = Window.document.createTextNode();
+		//textNode = Window.document.createTextNode();
 		domElement = Window.document.createElement("div");
-		domElement.appendChild(textNode);
+		domElement.style.setProperty("position", "absolute");
+		domElement.style.setProperty("width", "auto");
+		domElement.style.setProperty("height", "auto");
+		//domElement.appendChild(textNode);
 	}
 	
 	// HTML Properties
-	public var textNode:Text;
+	//public var textNode:Text;
 
 	public var background : Boolean = false;
 	public var multiline : Boolean = false;
@@ -56,13 +59,35 @@ public class TextField extends InteractiveObject
 	public var borderColor:uint = 0;
 	public var antiAliasType:String = "";
 	
-	public var textHeight:Number = 0;
-	public var textWidth:Number = 0;
+	private var _textHeight:Number = 0;
+	private var _textWidth:Number = 0;
 	
+	// Implement setting textHeight, textWidth with new formats
 	public var defaultTextFormat:TextFormat;
 	
 	
 	private var _text:String = "";
+
+	public function get textWidth():Number
+	{
+		return _textWidth;
+	}
+
+	public function set textWidth(value:Number):void
+	{
+		_textWidth = value;
+	}
+
+	public function get textHeight():Number
+	{
+		return _textHeight;
+	}
+
+	public function set textHeight(value:Number):void
+	{
+		_textHeight = value;
+	}
+
 	public function get text():String
 	{
 		return _text;
@@ -71,14 +96,35 @@ public class TextField extends InteractiveObject
 	public function set text(value:String):void
 	{
 		_text = value;
-		textNode.data = _text;
+		//textNode.data = _text;
+		(domElement as Object).innerHTML = _text;
+		calculateTextBounds(defaultTextFormat);
 	}
 
 	public function getTextFormat(beginIndex:int = -1, endIndex:int = -1):TextFormat { return new TextFormat() }
-	public function setTextFormat(format:TextFormat, beginIndex:int = -1, endIndex:int = -1):void {}
+	public function setTextFormat(format:TextFormat, beginIndex:int = -1, endIndex:int = -1):void 
+	{
+		calculateTextBounds(format);
+	}
 	public function setSelection(beginIndex:int, endIndex:int):void {}
 	public function appendText(newText:String):void { 
 		text += newText;
+	}
+	
+	public function calculateTextBounds(format:TextFormat):void
+	{
+		if (!format)
+			return;
+		var vis:String = domElement.style.getPropertyValue("visibility");
+		vis = (vis) ? vis : "visible";
+		domElement.style.setProperty("fontFamily", format.font);
+		domElement.style.setProperty("fontSize", format.size+"");
+		// TODO add format stuff (fontSize etc...)
+		Window.document.body.appendChild(domElement);
+		textWidth = domElement.clientWidth;
+		textHeight = domElement.clientHeight;
+		Window.document.body.removeChild(domElement);
+		domElement.style.setProperty("visibility", vis);
 	}
 		
 }

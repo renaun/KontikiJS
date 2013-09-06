@@ -45,6 +45,7 @@ public class TouchEvent extends Event
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		this.touchPointID = touchPointID;
+		this.isPrimaryTouchPoint = isPrimaryTouchPoint;
 	}
 	
 	public var pressure:Number;
@@ -53,5 +54,6 @@ public class TouchEvent extends Event
 	public var stageX:Number;
 	public var stageY:Number;
 	public var touchPointID:int;
+	public var isPrimaryTouchPoint:Boolean;
 }
 }

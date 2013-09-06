@@ -28,7 +28,8 @@ public dynamic class System
 	
 	public static function setClipboard(message:String):void {}
 	public static function gc():void {}
-	public static function pauseForGCIfCollectionImminent():void {}
+	public static function disposeXML(node:XML):void {}
+	public static function pauseForGCIfCollectionImminent(imminence:Number = 0.75):void {}
 	public function System()
 	{
 	}

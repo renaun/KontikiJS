@@ -18,11 +18,20 @@ limitations under the License.
 
 package flash.utils
 {
+	import randori.webkit.page.Window;
+
 //import avmplus.Domain;
 
 public function getDefinitionByName(value:*):Object
 {	
-	return new Object();// TODO need a JavaScript class look up Domain.currentDomain.getClass( value ) as Object;
+	var parts:Array = value.split(".");
+	var obj:Object = Window.window[parts[0]];
+	for (var i:int = 1; i < parts.length; i++) 
+	{
+		obj = obj[parts[i]];
+	}
+	
+	return obj;// TODO need a JavaScript class look up Domain.currentDomain.getClass( value ) as Object;
 }
 	
 }

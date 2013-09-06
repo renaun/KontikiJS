@@ -18,6 +18,7 @@ limitations under the License.
 
 package flash.utils
 {
+	import flash.display.Bitmap;
 	import flash.media.Sound;
 	import flash.net.URLRequest;
 	
@@ -76,6 +77,7 @@ public class FlashEmbed
 					}
 				}	
 			};   
+			GlobalUtilities.$inherit(embedClass as Class, JXONTree);
 		}
 		else if (type == "flash.media.Sound")
 		{
@@ -86,7 +88,7 @@ public class FlashEmbed
 				//var soundObject = new flash.media.Sound(flash.net.URLRequest(properties.source));
 				(Sound as Function).call(this , new URLRequest(properties.source));
 			};
-			GlobalUtilities.$inherit(embedClass, Sound);
+			GlobalUtilities.$inherit(embedClass as Class, Sound);
 		}
 		if (embedClass)
 		{

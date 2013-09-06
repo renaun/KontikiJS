@@ -27,12 +27,14 @@ public class JXONTree
 	private var keyAttributes:Object;
 	private var keyLength:int;
 	private var nLength:int;
+	private var _localName:String;
 	
 	public function JXONTree(oXMLParent:Element)
 	{
 		nAttrLen = 0;
 		nLength = 0;
 		var sCollectedTxt:String = "";
+		_localName = oXMLParent.localName;
 		if (oXMLParent.hasChildNodes()) 
 		{
 			var oNode:Element;
@@ -95,6 +97,7 @@ public class JXONTree
 		for (var sKey:* in this) { if (nCount === nItem) { return this[sKey]; } nCount++; }
 		return null;
 	}
+	public function localName():String { return _localName; }
 	public function attribute(nAttrId:*):* {
 		if (nAttrLen === 0 || nAttrId + 1 > nAttrLen) { return null; }
 		for (var sAttrName:* in keyAttributes) { 

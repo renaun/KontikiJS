@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,16 +16,17 @@ limitations under the License.
 @author Renaun Erickson / renaun.com / @renaun
 */
 
-package flash.utils
+package flash.display
 {
-
-	public function getQualifiedClassName(value:*):String
-	{
-		// Assume Randori classes
-		if (value.className != undefined)
-			return value.className;
-		var tmp:Object = new value();
-		return tmp.constructor.className;
-	}
-	
+public class StageQuality
+{
+	public static const BEST:String = "best";
+	public static const HIGH:String = "high";
+	public static const HIGH_16X16:String = "16x16";
+	public static const HIGH_16X16_LINEAR:String = "16x16linear";
+	public static const HIGH_8X8:String = "8x8";
+	public static const HIGH_8X8_LINEAR:String = "8x8linear";
+	public static const LOW:String = "low";
+	public static const MEDIUM:String = "medium";
+}
 }

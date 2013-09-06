@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,16 +16,18 @@ limitations under the License.
 @author Renaun Erickson / renaun.com / @renaun
 */
 
-package flash.utils
+package
 {
-
-	public function getQualifiedClassName(value:*):String
+public class JSON
+{
+	public static function parse(text:String, reviver:Function = null):Object
 	{
-		// Assume Randori classes
-		if (value.className != undefined)
-			return value.className;
-		var tmp:Object = new value();
-		return tmp.constructor.className;
+		throw new Error("API NOT IMPLEMENTED -- JSON.parse");
 	}
 	
+	public static function stringify(value:Object, replacer:* = null, space:* = null):String
+	{
+		throw new Error("API NOT IMPLEMENTED -- JSON.stringify");
+	}
+}
 }

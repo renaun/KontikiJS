@@ -18,6 +18,7 @@ limitations under the License.
 
 package tests
 {
+import flash.system.Capabilities;
 import flash.text.TextField;
 
 public class TestRunner
@@ -31,13 +32,22 @@ public class TestRunner
 	public var textField:TextField;
 	public var testGroup:Vector.<ITestable>;
 	
+	public var separator:String = (Capabilities.playerType == "js") ? "<br/>" : "\n";
+	
 	public function runTests(testGroup:Vector.<ITestable>):void
 	{
 		this.testGroup = testGroup;
 		currentTest = this.testGroup.pop();
+		currentTest.output = out;
+		out("Running Tests .... " + currentTest.name);
 		currentTest.stepHandler = processTest;
 		currentTest.buildup();
 		
+	}
+	
+	private function out(msg:String):void
+	{
+		textField.appendText(separator + msg);
 	}
 	
 	private function processTest(stepValue:String):void
@@ -48,10 +58,9 @@ public class TestRunner
 		}
 		else if (stepValue == "run")
 		{
-			textField.appendText("\n" + currentTest.name + ": " + currentTest.hasPassed());
+			textField.appendText(separator + currentTest.name + ": " + currentTest.hasPassed());
 			if (!currentTest.hasPassed())
-				
-			currentTest.teardown();
+				currentTest.teardown();
 		}
 		else if (stepValue == "teardown")
 		{

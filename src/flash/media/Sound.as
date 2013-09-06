@@ -77,12 +77,20 @@ public class Sound extends EventDispatcher
 	protected function completeHandler():void
 	{
 		var that:Object = this;
-		(SoundMixer.ctx as AudioContext).decodeAudioData(xhr.response as ArrayBuffer, function(buffer:AudioBuffer):void {
-				if (buffer) {
-					that.loadSound(buffer);
+		try
+		{
+			(SoundMixer.ctx as AudioContext).decodeAudioData(xhr.response as ArrayBuffer, function(buffer:AudioBuffer):void {
+					if (buffer) {
+						that.loadSound(buffer);
+					}
 				}
-			}
-		);
+			);
+		}
+		catch (error:Error)
+		{
+			dispatchEvent(new Event(Event.COMPLETE));
+			isLoaded = true;
+		}
 	}
 	
 	protected function loadSound(buffer:AudioBuffer):void
@@ -109,16 +117,17 @@ public class Sound extends EventDispatcher
 			if (!node)
 			{
 				node = SoundMixer.getGainNode() as Object;
-				
-				// setup the buffer source for playback
-				node.bufferSource.connect(node);
 				node.connect((SoundMixer.ctx as AudioContext).destination);
 			}
 			
 			if (node.bufferSource && node.bufferSource.loop)
 				node.bufferSource.stop(0);
 			
-			node.bufferSource = SoundMixer.ctx.createBufferSource
+			node.bufferSource = SoundMixer.ctx.createBufferSource();
+			if (!node.bufferSource)
+				return soundChannel;// TODO probably through an error here
+			// setup the buffer source for playback
+			node.bufferSource.connect(node);
 			node.bufferSource.loop = (loops > 0);
 			node.bufferSource.buffer = SoundMixer.cache[url];
 			node.bufferSource.connect((SoundMixer.ctx as AudioContext).destination);//node.panner);

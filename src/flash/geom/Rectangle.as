@@ -40,6 +40,14 @@ public class Rectangle
 		return new Rectangle(x, y, width, height);
 	}
 	
+	public function copyFrom(sourceRect:Rectangle):void
+	{
+		x = sourceRect.x;
+		y = sourceRect.y;
+		width = sourceRect.width;
+		height = sourceRect.height;
+	}
+	
 	public function union(toUnion:Rectangle):Rectangle
 	{
 		if (toUnion.width == 0 || toUnion.height == 0)

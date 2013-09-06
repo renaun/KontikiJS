@@ -24,6 +24,7 @@ import flash.text.TextField;
 import tests.ITestable;
 import tests.TestRunner;
 import tests.media.SoundTest;
+import tests.utils.ByteArrayTest;
 
 [SWF(frameRate="60", width="640", height="640", backgroundColor="0x336699")]
 public class Main extends Sprite
@@ -31,16 +32,30 @@ public class Main extends Sprite
 	public function Main()
 	{
 		var t:TextField = new TextField();
-		t.text = "KontikiJS Test Suite";
+		t.multiline = true;
+		t.width = 240;
+		t.height = 240;
+		t.text = "KontikiJS Test Runner";
 		addChild(t);
 		
-		t.domElement.style.position = "absolute";
-		t.domElement.style.left = "10px";
-		t.domElement.style.top = "10px";
+		try
+		{
+		if (t.domElement)
+		{
+			t.domElement.style.position = "absolute";
+			t.domElement.style.left = "10px";
+			t.domElement.style.top = "10px";
+		}
+		}
+		catch(error:Error)
+		{
+			
+		}
 		
 		// Create Array of Tests
 		var testSuite:Vector.<ITestable> = new Vector.<ITestable>();
-		testSuite.push(new SoundTest());
+		//testSuite.push(new SoundTest());
+		testSuite.push(new ByteArrayTest());
 		
 		// Run Tests
 		var runner:TestRunner = new TestRunner();

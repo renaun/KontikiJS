@@ -38,13 +38,16 @@ public class Program3D
 	public var shaderProgram:WebGLProgram;
 	public var shaderVertex:WebGLShader;
 	public var shaderFragment:WebGLShader;
-	public var registerOrdering:Array = [];
 	// Shader Specific
 	private var vertexPositionAttribute:Object;
 	private var textureCoordAttribute:Object;
 	private var colorAttribute:Object;
 	public var mvMatrixUniform:WebGLUniformLocation;
 	private var samplerUniform:WebGLUniformLocation;
+
+	public var shaderVertexSrc:Array;
+
+	public var shaderFragmentSrc:Array;
 	
 	
 	public function dispose():void
@@ -56,7 +59,6 @@ public class Program3D
 	
 	public function upload(vertexProgram:ByteArray, fragmentProgram:ByteArray):void
 	{
-		registerOrdering = [];	
 		/*
 		var shaderVertexSrc:Array = [	"attribute vec2 va0;",
 			"attribute vec2 va2;",
@@ -74,9 +76,9 @@ public class Program3D
 		var shaderFragmentSrc:Array = [	"precision mediump float;",
 			"varying vec2 v2;",
 			"varying float v1;",
-			"uniform sampler2D uSampler;",
+			"uniform sampler2D fs0;",
 			"void main(void) {",
-			"gl_FragColor = texture2D(uSampler, vec2(v2.x, v2.y));",
+			"gl_FragColor = texture2D(fs0, vec2(v2.x, v2.y));",
 			"gl_FragColor = gl_FragColor * v1;",
 			"}"];
 		
@@ -92,14 +94,14 @@ public class Program3D
 		
 		var shaderFragmentSrc:Array = [	"precision mediump float;",
 			"varying vec2 v2;",
-			"uniform sampler2D uSampler;",
+			"uniform sampler2D fs0;",
 			"void main(void) {",
-			"gl_FragColor = texture2D(uSampler, vec2(v2.x, v2.y));",
+			"gl_FragColor = texture2D(fs0, vec2(v2.x, v2.y));",
 			"}"];
 		*/
 		// TODO Cache Compiled Shaders
-		var shaderVertexSrc:Array = vertexProgram as Array;
-		var shaderFragmentSrc:Array = fragmentProgram as Array;
+		shaderVertexSrc = vertexProgram as Array;
+		shaderFragmentSrc = fragmentProgram as Array;
 		
 		var shaderVertex:WebGLShader = compileShader(shaderVertexSrc, WebGLRenderingContext.VERTEX_SHADER);
 		var shaderFragment:WebGLShader = compileShader(shaderFragmentSrc, WebGLRenderingContext.FRAGMENT_SHADER);

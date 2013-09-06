@@ -28,6 +28,8 @@ public interface ITestable
 	
 	function get name():String;
 	
+	function set output(value:Function):void;
+	
 	function get stepHandler():Function;
 	function set stepHandler(value:Function):void;
 	

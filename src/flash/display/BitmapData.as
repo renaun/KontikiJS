@@ -23,13 +23,14 @@ package flash.display
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	import flash.utils.FlashTimingEngine;
 	
 	import randori.webkit.html.HTMLCanvasElement;
 	import randori.webkit.html.HTMLImageElement;
-	import randori.webkit.html.ImageData;
 	import randori.webkit.html.canvas.CanvasRenderingContext2D;
 	import randori.webkit.page.Window;
 	import randori.webkit.xml.XMLHttpRequest;
@@ -44,9 +45,7 @@ public class BitmapData implements IBitmapDrawable
 		this.height = height;
 		this.transparent = transparent;
 		this.fillColor = fillColor;
-// Do I use ByteArray or just go all canvas?
-		//bitmapBytes = new ByteArray();
-		//bitmapBytes.length = width * height * 4;
+		
 		var len:int = width * height;
 		if (len > 0)
 		{
@@ -114,6 +113,7 @@ public class BitmapData implements IBitmapDrawable
 		}
 	}
 	
+	// Not Implemented Correctly
 	private var bitmapBytes:ByteArray;
 	
 	public var width:int = 0;
@@ -253,12 +253,33 @@ public class BitmapData implements IBitmapDrawable
 		var sourceBitmapData:BitmapData = source as BitmapData;
 		if (!sourceBitmapData || !image)
 			return;
+		var ctx:CanvasRenderingContext2D;
+		if ((sourceBitmapData as Object).constructor.className == "flash.text.TextField")
+		{
+			var text:TextField = sourceBitmapData as TextField;
+			var format:TextFormat = text.defaultTextFormat;
+			// TODO add rasterizeHTML.js functionality here to render the text
+			ctx = image.getContext("2d");
+			ctx.font = format.size+"px " + format.font;
+			(ctx as Object).fillText(text.text, matrix.tx, matrix.ty);
+		}
+		try
+		{
+			var shape:Shape = source as Shape;
+			if (shape.graphics && shape.graphics.canvas)
+			{
+				image = shape.graphics.canvas as JSImage;
+			}
+		}
+		catch (error:Error)
+		{
+			
+		}
 		if (!sourceBitmapData.image)
 			return;
-		var ctx:CanvasRenderingContext2D = image.getContext("2d");
+		ctx = image.getContext("2d");
 		(ctx as Object).drawImage(sourceBitmapData.image as HTMLImageElement, 0, 0, sourceBitmapData.image.width * matrix.a, sourceBitmapData.image.height * matrix.d);
-		//image = ctx as JSImage;
-		//FlashTimingEngine.logAPIWarning("$$$$ API NOT COMPLETE: BitmapData.draw() $$$$");
+		
 	}
 	public function paletteMap(sourceBitmapData:BitmapData, sourceRect:Rectangle, destPoint:Point, redArray:Array = null, greenArray:Array = null, blueArray:Array = null, alphaArray:Array = null):void  
 	{

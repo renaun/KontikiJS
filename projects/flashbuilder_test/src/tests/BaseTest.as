@@ -24,6 +24,13 @@ public class BaseTest implements ITestable
 	{
 	}
 	
+	protected var out:Function;
+	
+	public function set output(value:Function):void
+	{
+		out = value;
+	}
+	
 	private var _name:String = "BaseTest";
 	
 	public function get name():String

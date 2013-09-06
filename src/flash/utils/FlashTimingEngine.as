@@ -31,8 +31,6 @@ import flash.media.Sound;
 import flash.net.URLRequest;
 import flash.system.Capabilities;
 
-import randori.webkit.dom.MouseEvent;
-import randori.webkit.dom.TouchEvent;
 import randori.webkit.html.HTMLCanvasElement;
 import randori.webkit.page.Window;
 
@@ -81,7 +79,7 @@ public class FlashTimingEngine
 		}
 	}
 	
-	public static function captureEventHandler(event:randori.webkit.dom.MouseEvent):void
+	public static function captureEventHandler(event:Object):void
 	{
 		if (!stageInstance)
 			return;
@@ -92,11 +90,11 @@ public class FlashTimingEngine
 			type = "mouseMove";//flash.events.MouseEvent.MOUSE_MOVE;
 		else if (event.type == "mouseup")
 			type = "mouseUp";//flash.events.MouseEvent.MOUSE_UP;
-		var me:flash.events.MouseEvent = new flash.events.MouseEvent(type, false, false, event.offsetX, event.offsetY);
+		var me:MouseEvent = new MouseEvent(type, false, false, event.offsetX, event.offsetY);
 		stageInstance.dispatchEvent(me);
 	}
 	
-	public static function captureTouchEventHandler(event:randori.webkit.dom.TouchEvent):void
+	public static function captureTouchEventHandler(event:Object):void
 	{
 		if (!stageInstance)
 			return;
@@ -179,7 +177,7 @@ public class FlashTimingEngine
 			root.dispatchEvent(new Event(Event.ADDED_TO_STAGE));
 		}
 		else
-			Window.setTimeout(FlashTimingEngine.embedWait, 50);
+			Window.setTimeout(embedWait, 50);
 	}
 	
 	public static function tick():void
@@ -220,7 +218,7 @@ public class FlashTimingEngine
 
 		if (frameTime - lastFrameTime > 0)
 		{
-			Window.setTimeout(FlashTimingEngine.tick, (frameTime - lastFrameTime));
+			Window.setTimeout(tick, (frameTime - lastFrameTime));
 			return;
 		}
 		
@@ -230,7 +228,7 @@ public class FlashTimingEngine
 			lastFrameTime = frameTime;
 		//return !stopFlag;
 		if (!stopFlag)
-			frameHandler.request(FlashTimingEngine.tick);
+			frameHandler.request(tick);
 	}
 	
 	public static function stop():void
@@ -268,7 +266,9 @@ public class FlashTimingEngine
 	public static function logAPIWarning(msg:String):void
 	{
 		if (showAPIWarnings)
-			Window.console.log(msg);
+		{
+			Window.console.log(msg + "\n" + (new Error()).stack);
+		}
 	}
 	
 	private static var ENTER_EVENT:Event = new Event(Event.ENTER_FRAME, false);

@@ -18,6 +18,8 @@ limitations under the License.
 
 package flash.display3D
 {
+	import flash.utils.ByteArray;
+	
 	import randori.webkit.html.canvas.WebGLBuffer;
 	import randori.webkit.html.canvas.WebGLRenderingContext;
 	
@@ -53,7 +55,20 @@ public class VertexBuffer3D
 		
 		context3D.webglContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, buffer);
 		// DYNAMIC_DRAW vs STATIC_DRAW
-		context3D.webglContext.bufferData(WebGLRenderingContext.ARRAY_BUFFER, verticies as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.DYNAMIC_DRAW);
+		context3D.webglContext.bufferData(WebGLRenderingContext.ARRAY_BUFFER, verticies as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.STATIC_DRAW);
+		context3D.lastVertexBuffer = this;
+	}
+	
+	
+	public function uploadFromByteArray(data:ByteArray, byteArrayOffset:int, startVertex:int, numVertices:int):void
+	{
+		trace("VertexBuffer3D.uploadFromByteArray: " + data.length + " startVertex: " + startVertex + " nV: " + numVertices + "  byteArrayOffset: " + byteArrayOffset);
+		// data.length * 4 or just data.length
+		verticies = data.getArrayBuffer();
+		
+		context3D.webglContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, buffer);
+		// DYNAMIC_DRAW vs STATIC_DRAW
+		context3D.webglContext.bufferData(WebGLRenderingContext.ARRAY_BUFFER, verticies as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.STATIC_DRAW);
 		context3D.lastVertexBuffer = this;
 	}
 	

@@ -18,6 +18,7 @@ limitations under the License.
 
 package {
 	
+	import flash.utils.FlashEmbed;
 	import flash.utils.FlashTimingEngine;
 	
 	import guice.GuiceJs;
@@ -45,10 +46,13 @@ package {
 			
 			//classBuilder = injector.getInstance( InjectionClassBuilder ) as InjectionClassBuilder;
 			
+			//var embed:FlashEmbed = new FlashEmbed();
+			var obj2:* = classBuilder.buildClass( "flash.utils.FlashEmbed" );
 			var obj:* = classBuilder.buildClass( mainClassName );
 			//obj.main();
-			if (bgcolor.indexOf("#") > -1)
+			if (bgcolor && bgcolor.indexOf("#") > -1)
 				bgcolor = "0x" + bgcolor.substring(1, bgcolor.length);
+			
 			FlashTimingEngine.start(obj, frameRate, width, height, Number(bgcolor));
 			//FlashTimingEngine.start(obj, 60, 320, 480, 0xcccccc);
 		}
