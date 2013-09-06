@@ -1,0 +1,11 @@
+# Build and Release Folders
+bin-debug/
+bin-release/
+
+# Other files and folders
+.settings/
+.project_relative
+
+# Mac
+.DS_Store
+insertlic.sh
