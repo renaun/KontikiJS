@@ -18,10 +18,10 @@ limitations under the License.
 
 package {
 	
-	import flash.utils.FlashEmbed;
 	import flash.utils.FlashTimingEngine;
 	
 	import guice.GuiceJs;
+	import guice.IInjector;
 	import guice.InjectionClassBuilder;
 	import guice.Injector;
 	import guice.loader.SynchronousClassLoader;
@@ -38,7 +38,7 @@ package {
 			var urlRewriter:URLRewriterBase = new URLRewriterBase();
 			var loader:SynchronousClassLoader = new SynchronousClassLoader( new XMLHttpRequest(), urlRewriter, dynamicClassBaseUrl );
 			var guiceJs:GuiceJs = new GuiceJs( loader );
-			var injector:Injector = guiceJs.createInjector( null );
+			var injector:Injector = guiceJs.createInjector( null ) as Injector;
 			var classBuilder:InjectionClassBuilder = injector.getInstance( InjectionClassBuilder ) as InjectionClassBuilder;
 			//var module:GuiceModule = classBuilder.buildClass("FlashAPIInjector") as GuiceModule;
 			//guiceJs.configureInjector(injector as ChildInjector, module);

@@ -54,7 +54,7 @@ public class BitmapData implements IBitmapDrawable
 			canvas.height = height;
 			var ctx:CanvasRenderingContext2D = canvas.getContext("2d");
 			//ctx.drawImage(sourceBitmapData.image as HTMLImageElement, 0, 0, sourceBitmapData.image.width, sourceBitmapData.image.height, 0, 0, sourceBitmapData.image.width, sourceBitmapData.image.height);
-			imageData = ctx.createImageData(width, height) as JSImage;
+			imageData = ctx.createImageData2(width, height) as JSImage;
 			if (transparent && fillColor == 0) // By default createImageData creates a black alpha image
 				len = 0;
 			for (var i:int = 0; i < len; i++)
@@ -139,7 +139,7 @@ public class BitmapData implements IBitmapDrawable
 			canvas.width = width;
 			canvas.height = height;
 			var ctx:CanvasRenderingContext2D = canvas.getContext("2d");
-			ctx.drawImage(sourceBitmapData.image as HTMLImageElement, 0, 0, sourceBitmapData.image.width, sourceBitmapData.image.height, 0, 0, sourceBitmapData.image.width, sourceBitmapData.image.height);
+			ctx.drawImage6(sourceBitmapData.image as HTMLCanvasElement, 0, 0, sourceBitmapData.image.width, sourceBitmapData.image.height, 0, 0, sourceBitmapData.image.width, sourceBitmapData.image.height);
 			image = canvas as JSImage;
 		}
 		else

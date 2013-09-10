@@ -48,7 +48,7 @@ public class IndexBuffer3D
 		}
 		// TODO add index offsets
 		context3D.webglContext.bindBuffer(WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, buffer);
-		context3D.webglContext.bufferData(WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, indices as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.STATIC_DRAW);
+		context3D.webglContext.bufferData1(WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, indices as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.STATIC_DRAW);
 		
 	}
 	

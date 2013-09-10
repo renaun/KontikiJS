@@ -55,7 +55,7 @@ public class VertexBuffer3D
 		
 		context3D.webglContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, buffer);
 		// DYNAMIC_DRAW vs STATIC_DRAW
-		context3D.webglContext.bufferData(WebGLRenderingContext.ARRAY_BUFFER, verticies as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.STATIC_DRAW);
+		context3D.webglContext.bufferData1(WebGLRenderingContext.ARRAY_BUFFER, verticies as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.STATIC_DRAW);
 		context3D.lastVertexBuffer = this;
 	}
 	
@@ -68,7 +68,7 @@ public class VertexBuffer3D
 		
 		context3D.webglContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, buffer);
 		// DYNAMIC_DRAW vs STATIC_DRAW
-		context3D.webglContext.bufferData(WebGLRenderingContext.ARRAY_BUFFER, verticies as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.STATIC_DRAW);
+		context3D.webglContext.bufferData1(WebGLRenderingContext.ARRAY_BUFFER, verticies as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.STATIC_DRAW);
 		context3D.lastVertexBuffer = this;
 	}
 	
@@ -77,7 +77,7 @@ public class VertexBuffer3D
 	{
 		
 		context3D.webglContext.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, buffer);
-		context3D.webglContext.bufferData(WebGLRenderingContext.ARRAY_BUFFER, verticies as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.DYNAMIC_DRAW);
+		context3D.webglContext.bufferData1(WebGLRenderingContext.ARRAY_BUFFER, verticies as randori.webkit.html.canvas.ArrayBuffer, WebGLRenderingContext.DYNAMIC_DRAW);
 		context3D.lastVertexBuffer = this;
 	}
 	

@@ -64,7 +64,7 @@ public class SoundMixer
 			{
 				masterGain = (typeof ctx.createGain === 'undefined') ? ctx.createGainNode() : ctx.createGain();
 				masterGain.gain.value = 1;
-				masterGain.connect(ctx.destination);
+				masterGain.connect1(ctx.destination);
 			}
 			
 			// check for browser codec support
