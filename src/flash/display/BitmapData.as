@@ -294,6 +294,12 @@ public class BitmapData implements IBitmapDrawable
 		FlashTimingEngine.logAPIWarning("$$$$ API NOT COMPLETE: BitmapData.threshold() $$$$");
 		return 0 
 	}
+	
+	public function hitTest(firstPoint:Point, firstAlphaThreshold:uint, secondObject:Object, secondBitmapDataPoint:Point = null, secondAlphaThreshold:uint = 1):Boolean
+	{
+		FlashTimingEngine.logAPIWarning("$$$$ API NOT COMPLETE: NON IMAGE BitmapData.hitTest() $$$$");
+		return false;
+	}
 
 	
 	public function clone():BitmapData

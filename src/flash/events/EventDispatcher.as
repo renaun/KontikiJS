@@ -158,7 +158,9 @@ public dynamic class EventDispatcher implements IEventDispatcher
 			if (arr == null)
 				return false;
 			
-			event.target = this;
+			if (!event.target)
+				event.target = this;
+			event.currentTarget = this;
 			for (var i:int = 0; i < arr.length; i++) 
 			{
 				if (arr[i].listener as Function != null)

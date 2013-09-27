@@ -62,6 +62,10 @@ public class Keyboard
 	public static const TAB: uint = 9;
 	public static const CONTROL: uint = 17;
 	public static const ESCAPE: uint = 27;
+	
+	public static var capsLock:Boolean = false;
+	public static var numLock:Boolean = false;
+	public static var hasVirtualKeyboard:Boolean = false;
 	public function Keyboard()
 	{
 	}

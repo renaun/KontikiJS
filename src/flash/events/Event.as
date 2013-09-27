@@ -47,6 +47,7 @@ public dynamic class Event
 	}
 	
 	public var target:Object;
+	public var currentTarget:Object;
 	
 	protected var _type:String = "";
 	protected var _bubbles:Boolean;
@@ -70,8 +71,10 @@ public dynamic class Event
 		return new Event(type);
 	}
 	
+	
 	public function preventDefault():void {}
 		
+	
 	
 	public function toString():String
 	{
