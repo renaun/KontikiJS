@@ -46,7 +46,7 @@ public dynamic class DisplayObjectContainer extends InteractiveObject
 	{		
 		child._parent2 = this;
 		
-		addChildAt(child, children.length-1);
+		addChildAt(child, children.length);
 		
 		return child;
 	}
@@ -60,7 +60,7 @@ public dynamic class DisplayObjectContainer extends InteractiveObject
 			child.parent.removeChild(child);
 		
 		child._parent2 = this;
-		children = children.splice(index, 0, child);
+		/*children =*/ children.splice(index, 0, child);
 		
 		// TODO Make this work for index properly
 		if (child.domElement)
@@ -73,12 +73,13 @@ public dynamic class DisplayObjectContainer extends InteractiveObject
 	
 	public function getChildAt(index:int):DisplayObject
 	{
-		for (var i:int = 0; i < children.length; i++) 
+		return children[index];
+		/*for (var i:int = 0; i < children.length; i++) 
 		{
 			if (i == index)
 				return children[i];
 		}
-		return null;
+		return null;*/
 	}
 	
 	public function getChildIndex(child:DisplayObject):int
@@ -149,6 +150,15 @@ public dynamic class DisplayObjectContainer extends InteractiveObject
 		{
 			if (children[i] is EventDispatcher)
 				(children[i] as EventDispatcher).dispatchEvent(event);
+		}
+	}
+	
+	override public function updateGraphics():void 
+	{
+		super.updateGraphics();
+		
+		for each(var c:DisplayObject in children) {
+			c.updateGraphics();
 		}
 	}
 }

@@ -18,8 +18,12 @@ limitations under the License.
 
 package flash.geom
 {
+	import flash.display.DisplayObject;
 public class Transform
 {
+	public var matrix:Matrix = new Matrix;
+	public var worldMatrix:Matrix = new Matrix;
+	public var target:DisplayObject;
 	public function Transform()
 	{
 	}

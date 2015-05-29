@@ -18,12 +18,27 @@ limitations under the License.
 
 package flash.display
 {
+	import flash.events.Event;
+	import flash.text.TextField;
+	import flash.utils.FlashTimingEngine;
+	
+import randori.webkit.html.canvas.CanvasRenderingContext2D;
 public dynamic class Stage extends DisplayObjectContainer
 {
 	public function Stage()
 	{
 		super();
+		addEventListener(Event.ENTER_FRAME, enterFrame);
 	}
+	
+	private function enterFrame(e:Event):void 
+	{
+		var c:CanvasRenderingContext2D = (FlashTimingEngine.root as Sprite).graphics.getCanvas();
+		c.clearRect(0, 0, 1000, 1000);
+		FlashTimingEngine.root.updateGraphics();
+	}
+	
+	
 	
 	public var stageWidth:Number;
 	public var stageHeight:Number;

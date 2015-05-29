@@ -33,10 +33,17 @@ public dynamic class Sprite extends DisplayObjectContainer
 	private var _graphics:Graphics;
 	public function get graphics():Graphics
 	{
-		if (!_graphics)
+		if (!_graphics){
 			_graphics = new Graphics();
+			_graphics.sprite = this;
+		}
 		return _graphics;
 	}
 
+	override public function updateGraphics():void 
+	{
+		super.updateGraphics();
+		graphics.updateGraphics();
+	}
 }
 }

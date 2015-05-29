@@ -22,7 +22,7 @@ import randori.webkit.page.Window;
 
 public function trace(...s):void
 {	
-	return;
+	//return;
 	if (s.length > 1)
 		Window.console.log(s);
 	else

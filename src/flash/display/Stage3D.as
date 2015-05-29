@@ -74,7 +74,8 @@ public class Stage3D extends EventDispatcher
 	{
 		trace("Stage3D");
 		// Create Canvas
-		var canvas:Object = Window.document.createElement("canvas") as HTMLCanvasElement;
+		//var canvas:Object = Window.document.createElement("canvas") as HTMLCanvasElement;
+		var canvas:Object = Window.document.getElementById("stage3d") as HTMLCanvasElement;
 		//canvas.width = 200;
 		//canvas.height = 200;
 		//canvas.background = "#336699";
