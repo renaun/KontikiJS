@@ -18,12 +18,15 @@ limitations under the License.
 
 package flash.display
 {
+import flash.events.Event;
 import flash.net.URLRequest;
 import flash.system.LoaderContext;
 import flash.utils.ByteArray;
+import renaun.html.stub.JSImage;
 
 public class Loader extends DisplayObjectContainer
 {
+	private var image:JSImage;
 	public function Loader()
 	{
 		this.contentLoaderInfo = new LoaderInfo();
@@ -34,7 +37,26 @@ public class Loader extends DisplayObjectContainer
 	public var content : DisplayObject;
 	
 	public function close():void {}
-	public function load(request:URLRequest, context:LoaderContext = null):void {}
+	public function load(request:URLRequest, context:LoaderContext = null):void {
+		contentLoaderInfo.url = request.url;
+		image = new JSImage;
+		image.addEventListener("load", onload);
+		image.src = request.url;
+	}
+	
+	private function onload(e:Event):void 
+	{
+		var bitmap:Bitmap = new Bitmap(new BitmapData(0, 9, true));
+		bitmap.width = image.width;
+		bitmap.height = image.height;
+		bitmap.bitmapData.image = image;
+		bitmap.bitmapData.width = image.width;
+		bitmap.bitmapData.height = image.height;
+		bitmap.bitmapData.updatePatern();
+		content = bitmap;
+		
+		contentLoaderInfo.dispatchEvent(new Event(Event.COMPLETE));
+	}
 	public function loadBytes(bytes:ByteArray, context:LoaderContext = null):void {}
 	public function unload():void {}
 	public function unloadAndStop(gc:Boolean = true):void {}

@@ -70,7 +70,13 @@ public final class Graphics
 	}
 	public function beginBitmapFill(bitmap:BitmapData, matrix:Matrix = null, repeat:Boolean = true, smooth:Boolean = false):void 
 	{
-		FlashTimingEngine.logAPIWarning("$$$$ API NOT COMPLETE: Graphics.beginBitmapFill() $$$$");
+		var cmd:SetBitmapAttribCmd=new SetBitmapAttribCmd(getCanvas(),"fillStyle", bitmap,matrix,repeat,this.sprite);
+		this.cmds.push(
+			cmd,
+			new Cmd(getCanvas().beginPath, null),
+			new SetAttribCmd(this,"filling", true),
+			new SetAttribCmd(this,"fillingBmdCmd", cmd)
+		);
 	}
 	public function beginGradientFill(type:String, colors:Array, alphas:Array, ratios:Array, matrix:* = null, spreadMethod:String = "pad", interpolationMethod:String = "rgb", focalPointRatio:Number = 0):void 
 	{
@@ -93,7 +99,11 @@ public final class Graphics
 	}
 	public function drawRect(x:Number, y:Number, width:Number, height:Number):void 
 	{
-		FlashTimingEngine.logAPIWarning("$$$$ API NOT COMPLETE: Graphics.drawRect() $$$$");
+		moveTo(x, y);
+		lineTo(x + width,y);
+		lineTo(x + width,y+height);
+		lineTo(x,y+height);
+		lineTo(x,y);
 	}
 	public function drawRoundRect(x:Number, y:Number, width:Number, height:Number, ellipseWidth:Number, ellipseHeight:Number = NaN):void 
 	{

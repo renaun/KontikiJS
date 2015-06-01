@@ -28,6 +28,7 @@ package flash.display
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	import flash.utils.FlashTimingEngine;
+	import randori.webkit.html.canvas.CanvasPattern;
 	
 	import randori.webkit.html.HTMLCanvasElement;
 	import randori.webkit.html.HTMLImageElement;
@@ -39,6 +40,9 @@ package flash.display
 
 public class BitmapData implements IBitmapDrawable
 {
+	
+	public var noRepeatPatern:CanvasPattern;
+	public var repeatPatern:CanvasPattern;
 	public function BitmapData(width:int, height:int, transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF)
 	{
 		this.width = width;
@@ -67,8 +71,16 @@ public class BitmapData implements IBitmapDrawable
 			}
 			(ctx as Object).putImageData(imageData, 0, 0);
 			image = canvas as JSImage;
+			updatePatern();
 		}
 		_rect = new Rectangle(0, 0, width, height);
+	}
+	
+	public function updatePatern():void {
+		var g:Graphics = new Graphics;
+		var ctx:CanvasRenderingContext2D = g.getCanvas();
+		repeatPatern=ctx.createPattern2(image as HTMLImageElement, "repeat");
+		noRepeatPatern=ctx.createPattern2(image as HTMLImageElement, "no-repeat");
 	}
 	
 	// WebGL Specific

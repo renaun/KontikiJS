@@ -17,7 +17,7 @@ public	class SetBitmapAttribCmd extends SetAttribCmd {
 		super(target,name,null);
     }
     override public function update():void {
-        //this.value = this.target.createPattern(this.bmd.image,this.repeat? "repeat":"no-repeat");
+        this.value = bmd.noRepeatPatern;
 		super.update();
     }
 }
