@@ -52,8 +52,9 @@ public dynamic class DisplayObject extends EventDispatcher implements IBitmapDra
 		name = "Instance" + DisplayObject.instanceCounter++;
 		
 		transform = new Transform();
+		transform.target = this;
 	}
-	public var alpha : Number = 0.0;
+	public var alpha : Number = 1.0;
 	public var cacheAsBitmap : Boolean = false;
 	public var name:String = "";
 	public var mask:DisplayObject;
@@ -197,6 +198,20 @@ public dynamic class DisplayObject extends EventDispatcher implements IBitmapDra
 	override public function toString():String
 	{
 		return name;
+	}
+	
+	public function updateGraphics():void {
+		transform.matrix.identity();
+		transform.matrix.scale(this.scaleX,this.scaleY);
+		transform.matrix.rotate(this.rotation*Math.PI/180);
+		transform.matrix.translate(this.x,this.y);
+		
+		if(this.parent){
+			transform.worldMatrix.copyFrom(this.parent.transform.worldMatrix);
+			transform.worldMatrix.concat(transform.matrix);
+		}else {
+			transform.worldMatrix.copyFrom(this.transform.matrix);
+		}
 	}
 	
 }

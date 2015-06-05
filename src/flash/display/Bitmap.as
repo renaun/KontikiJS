@@ -18,6 +18,8 @@ limitations under the License.
 
 package flash.display
 {
+	
+import flash.geom.Matrix;
 public dynamic class Bitmap extends DisplayObject
 {
 	public function Bitmap(bitmapData:BitmapData = null, pixelSnapping:String = "auto", smoothing:Boolean = false)
@@ -31,5 +33,23 @@ public dynamic class Bitmap extends DisplayObject
 	public var blendMode:String = "";
 	
 	public var bitmapData:BitmapData;
+	
+	private var _g:Graphics;
+	override public function updateGraphics():void {
+		super.updateGraphics();
+		if (bitmapData) {
+			g.updateGraphics();
+		}
+	}
+	private function get g():Graphics 
+	{
+		if (_g==null) {
+			_g = new Graphics;
+			_g.sprite = this;
+			_g.beginBitmapFill(bitmapData, null, false, smoothing);
+			_g.drawRect(0, 0, bitmapData.width, bitmapData.height);
+		}
+		return _g;
+	}
 }
 }
